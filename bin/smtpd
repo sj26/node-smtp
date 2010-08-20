@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+var smtp = require('smtp')
+
+var server = smtp.createServer()
+
+server.listen(25, '0.0.0.0');
