@@ -1,0 +1,7 @@
+{ "name" : "smtp"
+, "version" : "0.0.1"
+, "description" : "SMTP daemon (and eventually client) library"
+, "engines" : [ "node" ]
+, "bin" : "bin/smtpd"
+, "dependencies" : ["linebuffer"]
+}
