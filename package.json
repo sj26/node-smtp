@@ -4,4 +4,5 @@
 , "engines" : [ "node" ]
 , "bin" : "bin/smtpd"
 , "dependencies" : ["linebuffer"]
+, "directories" : { "lib" : "./lib" }
 }
