@@ -8,9 +8,23 @@ server.hostname = 'testhost';
 server.on('connection', function(conn) {
 	conn.on('mailFrom', function(sender) {
 		console.info("MAIL FROM " + sender.address)
+		if(sender.address.match(/invalid/)) sender.valid = false
 	})
-	conn.on('rcptTo', function(receiver) {
-		console.info("RCPT TO " + receiver.address)
+	conn.on('rcptTo', function(recipient) {
+		console.info("RCPT TO " + recipient.address)
+		if(recipient.address.match(/invalid/)) recipient.valid = false
+	})
+	conn.on('helo', function(helo) {
+		if(helo.name.match(/invalid/)) helo.valid = false
+	})
+	conn.on('message', function(message) {
+		console.log("Message incoming! From " + message.sender.address + " to " + message.recipients.map(function(e) { return e.address }).join(', '))
+		message.on('data', function(data) {
+			console.log('DATA: ' + data);
+		})
+		message.on('end', function() {
+			console.log('EOT');
+		})
 	})
 })
 
