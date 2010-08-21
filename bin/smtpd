@@ -4,4 +4,6 @@ var smtp = require('smtp')
 
 var server = smtp.createServer()
 
+server.hostname = 'testhost';
+
 server.listen(25, '0.0.0.0');
