@@ -5,5 +5,13 @@ var smtp = require('smtp')
 var server = smtp.createServer()
 
 server.hostname = 'testhost';
+server.on('connection', function(conn) {
+	conn.on('mailFrom', function(sender) {
+		console.info("MAIL FROM " + sender.address)
+	})
+	conn.on('rcptTo', function(receiver) {
+		console.info("RCPT TO " + receiver.address)
+	})
+})
 
 server.listen(25, '0.0.0.0');
