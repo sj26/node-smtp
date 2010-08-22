@@ -1,0 +1,8 @@
+EHLO me
+MAIL FROM: test
+RCPT TO: test
+DATA
+test
+test
+.
+QUIT
