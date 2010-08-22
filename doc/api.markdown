@@ -1,4 +1,4 @@
-smtp.Server -- SMTP server (and soon, client) library and daemon for node.js
+node-smtp -- SMTP server (and soon, client) library and daemon for node.js
 ============================================================================
 
 ## Synopsis
