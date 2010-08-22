@@ -2,22 +2,21 @@
 
 var smtp = require('smtp')
 
-var server = smtp.createServer()
-
-server.hostname = 'testhost';
-server.on('connection', function(conn) {
-	conn.on('mailFrom', function(sender) {
+var server = smtp.createServer(function(conn) {
+	conn.on('MAIL FROM', function(sender) {
 		console.info("MAIL FROM " + sender.address)
 		if(sender.address.match(/invalid/)) sender.valid = false
 	})
-	conn.on('rcptTo', function(recipient) {
+	conn.on('RCPT TO', function(recipient) {
 		console.info("RCPT TO " + recipient.address)
 		if(recipient.address.match(/invalid/)) recipient.valid = false
 	})
-	conn.on('helo', function(helo) {
-		if(helo.name.match(/invalid/)) helo.valid = false
-	})
-	conn.on('message', function(message) {
+	var f = function(helo) {
+                if(helo.name.match(/invalid/)) helo.valid = false
+        }
+	conn.on('HELO', f)
+	conn.on('EHLO', f)
+	conn.on('DATA', function(message) {
 		console.log("Message incoming! From " + message.sender.address + " to " + message.recipients.map(function(e) { return e.address }).join(', '))
 		message.on('data', function(data) {
 			console.log('DATA: ' + data);
@@ -28,4 +27,6 @@ server.on('connection', function(conn) {
 	})
 })
 
-server.listen(25, '0.0.0.0');
+server.hostname = 'testserver'
+
+server.listen(25)
