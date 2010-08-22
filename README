@@ -1,3 +1,6 @@
-I'm extending and generalizing this into a generic SMTP server socket class.
+I'm extending and generalizing this into a generic SMTP server and client
+socket library.
+
+For now, just the server side is implemented.
 
 --Aria
