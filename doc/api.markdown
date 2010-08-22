@@ -27,6 +27,16 @@ any mail sent to it:
 Ths main SMTP server constructor. Usually instantiated with
 `'smtp.createServer'`
 
+### Properties
+
+* `hostname`, the domain name to reply to a `HELO` or `EHLO` command with.
+  Defaults to `hostname.unconfigured`.
+* `maxSize`, the largest message acceptable. Defaults to `undefined`.
+* `allowPipelining`, whether to allow the `ESMTP` `PIPELINING` extension.
+  Defaults to `true`.
+* `authMethods`, an array of authentication types to allow. Defaults to
+  `undefined`.
+
 ### Event: 'connection'
 
 `function(connection) { }`
@@ -44,6 +54,17 @@ callback.
 
 It is an EventEmitter that implements the `Readable Stream` interface, as
 well as the following events:
+
+### Properties
+
+* `helo`, the an object in the form of `{name: "name given at HELO time",
+  extended: true}`
+* `sender`, the sender information given in the `MAIL FROM:` command.
+* `receipients`, the recipients given by `RCPT TO:` commands.
+* `state`, the current state of the connection. (Currently just `welcome` or
+  `data`)
+* `currentMessage`, the EventEmitter that represents the current message
+  stream, if the connection is in the `data` state.
 
 ### Event: 'HELO' and 'EHLO'
 
@@ -106,3 +127,19 @@ The `'message'` object has the following properties:
   sure you've really accepted responsibility for the message.
 
 It implements the `Readable Stream` interface.
+
+### Event: 'RSET'
+
+`function() {}`
+
+Emitted when the client issues a reset command
+
+### Event: 'QUIT'
+
+`function() {}`
+
+Emitted when the client quits, before the socket is closed
+
+### Event: 'EXPN' (work in progress)
+
+Emitted when the client issues an expand aliases command
