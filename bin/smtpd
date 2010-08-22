@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 var smtp = require('smtp')
+var fs = require('fs')
+var sys = require('sys')
 
 var server = smtp.createServer(function(conn) {
 	conn.on('MAIL FROM', function(sender) {
@@ -18,6 +20,10 @@ var server = smtp.createServer(function(conn) {
 	conn.on('EHLO', f)
 	conn.on('DATA', function(message) {
 		console.log("Message incoming! From " + message.sender.address + " to " + message.recipients.map(function(e) { return e.address }).join(', '))
+		var mbox = fs.createWriteStream('mbox', {flags: 'a'})
+		sys.pump(message, mbox, function() {
+			mbox.close()
+		})
 		message.on('data', function(data) {
 			console.log('DATA: ' + data);
 		})
