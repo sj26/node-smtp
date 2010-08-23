@@ -29,7 +29,13 @@ var server = smtp.createServer(function(conn) {
 				console.log(error)
 			} else {
 				sys.pump(message, mbox, function() {
-					mbox.close()
+					mbox.end()
+					message.accept()
+				})
+				message.on('end', function() {
+					// This is ugly, but pump stops on
+					// close, not end.
+					message.emit('close')
 				})
 			}
 		})
