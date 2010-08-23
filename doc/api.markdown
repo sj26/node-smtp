@@ -148,14 +148,6 @@ message data.
   received will be sent. Defaults to `false`.  Call `accept()` to accept the
   message or `reject()` to reject it.
 
-### smtp.MessageStream.accept()
-
-Accepts the message, so the SMTP daemon will return a 2xx response.
-
-### smtp.MessageStream.reject()
-
-Rejects the message, so the SMTP daemon will return a 4xx/5xx response.
-
 ### Event: accept
 
 Emitted when the message is accepted.
@@ -163,3 +155,11 @@ Emitted when the message is accepted.
 ### Event: reject
 
 Emitted when the message is rejected.
+
+### smtp.MessageStream.accept()
+
+Accepts the message, so the SMTP daemon will return a 2xx response.
+
+### smtp.MessageStream.reject()
+
+Rejects the message, so the SMTP daemon will return a 4xx/5xx response.
