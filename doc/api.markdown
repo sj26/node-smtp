@@ -113,20 +113,10 @@ The `'recipient'` object has the following properties:
 
 ### Event: 'DATA'
 
-`function(message) {}`
+`function(MessageStream) {}`
 
 Emitted when the client begins sending message data.
 
-The `'message'` object has the following properties:
-
-* `'sender'`, the SMTP sender object
-* `'receivers'`, an array of SMTP receiver objects
-* `'connection'`, the `'smtp.Connection'` object
-* `'accepted'`, whether or not confirmation that the message has been
-  received will be sent. Defaults to `false`. Can be set to `true` if you're
-  sure you've really accepted responsibility for the message.
-
-It implements the `Readable Stream` interface.
 
 ### Event: 'RSET'
 
@@ -143,3 +133,33 @@ Emitted when the client quits, before the socket is closed
 ### Event: 'EXPN' (work in progress)
 
 Emitted when the client issues an expand aliases command
+
+## smtp.MessageStream()
+
+An `EventEmitter` implementing the `Readable Stream` interface carrying the
+message data.
+
+### Properties
+
+* `'sender'`, the SMTP sender object
+* `'receivers'`, an array of SMTP receiver objects
+* `'connection'`, the `'smtp.Connection'` object
+* `'accepted'`, whether or not confirmation that the message has been
+  received will be sent. Defaults to `false`.  Call `accept()` to accept the
+  message or `reject()` to reject it.
+
+### smtp.MessageStream.accept()
+
+Accepts the message, so the SMTP daemon will return a 2xx response.
+
+### smtp.MessageStream.reject()
+
+Rejects the message, so the SMTP daemon will return a 4xx/5xx response.
+
+### Event: accept
+
+Emitted when the message is accepted.
+
+### Event: reject
+
+Emitted when the message is rejected.
