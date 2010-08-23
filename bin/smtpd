@@ -40,6 +40,9 @@ var server = smtp.createServer(function(conn) {
 			console.log('EOT');
 		})
 	})
+	conn.on('error', function(error) {
+		console.error(error)
+	})
 })
 
 server.hostname = 'testserver'
