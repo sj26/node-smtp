@@ -1,5 +1,5 @@
 { "name" : "smtp"
-, "version" : "0.0.3"
+, "version" : "0.0.4"
 , "description" : "SMTP daemon (and eventually client) library"
 , "engines" : [ "node" ]
 , "dependencies" : ["linebuffer >= 0.0.4"]
