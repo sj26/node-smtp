@@ -2,6 +2,6 @@
 , "version" : "0.0.3"
 , "description" : "SMTP daemon (and eventually client) library"
 , "engines" : [ "node" ]
-, "dependencies" : ["linebuffer"]
+, "dependencies" : ["linebuffer >= 0.0.4"]
 , "directories" : { "lib" : "./lib", "bin": "./bin" }
 }
