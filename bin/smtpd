@@ -23,14 +23,14 @@ var server = smtp.createServer(function(conn) {
 	conn.on('EHLO', f)
 	conn.on('DATA', function(message) {
 		console.log("Message incoming! From " + message.sender.address + " to " + message.recipients.map(function(e) { return e.address }).join(', '))
-		message.pause()
 		destination.appendMessage(function(error, mbox) {
 			if(error) {
-				console.log("Error: " + error)
-				message.emit('error', new Error("451 Internal Error"))
+				console.log("Message Error: " + error)
+				message.emit('error', {smtpCode: "451",
+smtpMessage: "Internal Error"})
 				message.resume()
 			} else {
-				sys.pump(message, mbox, function() {
+				sys.pump(message, mbox, function(error) {
 					mbox.end()
 					message.accept()
 				})
