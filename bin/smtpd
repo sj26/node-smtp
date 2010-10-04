@@ -32,20 +32,25 @@ smtpMessage: "Internal Error"})
 			} else {
 				sys.pump(message, mbox, function(error) {
 					mbox.end()
-					message.accept()
+					if(error) {
+						message.abort(error)
+					} else {
+						message.accept()
+					}
 				})
 				message.on('end', function() {
 					// This is ugly, but pump stops on
 					// close, not end.
 					message.emit('close')
 				})
+				message.start()
 			}
 		})
 		message.on('data', function(data) {
-			console.log('DATA: ' + data);
+			console.log('# ' + data.trimRight());
 		})
 		message.on('end', function() {
-			console.log('EOT');
+			console.log('!');
 		})
 	})
 	conn.on('error', function(error) {
