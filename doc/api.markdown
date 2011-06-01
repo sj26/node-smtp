@@ -16,6 +16,7 @@ any mail sent to it:
            })
            message.on('end', function() {
               console.log('EOT')
+              message.accept()
            })      
         })
     }).listen(25)
