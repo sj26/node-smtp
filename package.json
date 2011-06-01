@@ -1,5 +1,5 @@
 { "name" : "smtp"
-, "version" : "0.0.5"
+, "version" : "0.1.0"
 , "description" : "SMTP daemon (and eventually client) library"
 , "engines" : {"node": "0.4.x || 0.5.x"}
 , "directories" : { "lib" : "./lib", "bin": "./bin" }
