@@ -1,7 +1,6 @@
 { "name" : "smtp"
 , "version" : "0.0.5"
 , "description" : "SMTP daemon (and eventually client) library"
-, "engines" : [ "node" ]
-, "dependencies" : ["linebuffer >= 0.0.4"]
+, "engines" : {"node": "0.4.x || 0.5.x"}
 , "directories" : { "lib" : "./lib", "bin": "./bin" }
 }
