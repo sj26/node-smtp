@@ -3,4 +3,5 @@
 , "description" : "SMTP daemon (and eventually client) library"
 , "engines" : {"node": "0.4.x || 0.5.x"}
 , "directories" : { "lib" : "./lib", "bin": "./bin" }
+, "main": "./lib/smtp.js"
 }
